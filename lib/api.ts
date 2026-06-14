@@ -31,11 +31,13 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   return data;
 };
 
-export const createNote = async (noteData: {
+export interface createNoteProps {
   title: string;
   content: string;
   tag: NoteTag;
-}): Promise<Note> => {
+}
+
+export const createNote = async (noteData: createNoteProps): Promise<Note> => {
   const { data } = await api.post<Note>('/notes', noteData);
   return data;
 };
