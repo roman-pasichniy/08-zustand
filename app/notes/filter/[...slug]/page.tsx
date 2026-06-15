@@ -3,10 +3,37 @@ import { notFound } from 'next/navigation';
 import NotesClient from './Notes.client';
 import { fetchNotes } from '@/lib/api';
 import { noteTags, type NoteTag } from '@/types/note';
+import type { Metadata } from 'next';
+
+const noteFilterBaseUrl = 'https://notehub.vercel.app/notes/filter';
 
 type Props = {
   params: Promise<{ slug?: string[] }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const rawTag = slug?.[0];
+  const selectedTag =
+    !rawTag || rawTag === 'all' || !noteTags.includes(rawTag as NoteTag) ? 'all' : rawTag;
+
+  const title = `Notes by filter: ${selectedTag} | NoteHub`;
+  const description = `Browse NoteHub notes with the \"${selectedTag}\" filter.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/notes/filter/${selectedTag}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${noteFilterBaseUrl}/${selectedTag}`,
+      images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
+    },
+  };
+}
 
 export default async function FilteredNotesPage({ params }: Props) {
   const { slug } = await params;
