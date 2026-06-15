@@ -10,3 +10,9 @@ export interface Note {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface NoteDraft {
+  title: string;
+  content: string;
+  tag: NoteTag;
+}
