@@ -33,7 +33,7 @@ const NoteForm = () => {
     },
     onSuccess: () => {
       clearDraft();
-      queryClient.invalidateQueries({ queryKey: ['noteHubKey'] });
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
       toast.success('Success! Your note has been added.');
       router.back();
     },

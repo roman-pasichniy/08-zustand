@@ -40,7 +40,7 @@ export default function NotesClient({ initialTag }: NotesClientProps) {
         {data && data.totalPages > 1 && (
           <Pagination pageCount={data.totalPages} currentPage={page} onPageChange={setPage} />
         )}
-        <Link className={css.button} href="/notes/action/create">
+        <Link className={css.button} href="/notes/actions/create">
           Create note +
         </Link>
       </div>
